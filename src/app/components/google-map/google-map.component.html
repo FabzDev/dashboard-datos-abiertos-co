@@ -1,0 +1,10 @@
+<h1>Google Maps in Angular 17</h1>
+<google-map height="100vh" width="100vw" [options]="testMapOptions">
+  @for (station of stations; track station) {
+  <map-marker [position]="{lat: toNumber(station.latitud), lng: toNumber(station.longitud)}"
+    [options]="markerOptions" />
+
+  }
+</google-map>
+
+<!-- <google-map height="50vh" width="50vw" [center] = "{lat: 10.40, lng: -75.50}" [options]="mapOptions" > </google-map> -->
