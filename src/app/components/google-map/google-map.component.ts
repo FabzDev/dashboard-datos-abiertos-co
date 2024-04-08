@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { StationsService } from '../../services/stations.service';
 import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { StationResponse } from '../../interfaces/station-response.interface';
+import { StationCoordinates } from '../../interfaces/station-coordinates.interface';
 
 @Component({
   selector: 'app-google-map',
@@ -14,11 +15,9 @@ import { StationResponse } from '../../interfaces/station-response.interface';
 })
 export default class GoogleMapComponent {
 
-
-
   private stationsService = inject(StationsService);
 
-  public stations?: StationResponse[] = this.stationsService.stations;
+   public stationsCoords: StationCoordinates[] = [];
 
   public markerOptions: google.maps.MarkerOptions = {draggable: false};
 
@@ -28,8 +27,15 @@ export default class GoogleMapComponent {
     zoom: 13,
   };
 
-  public toNumber(str: string): number {
-    return parseFloat(str);
-    }
+  constructor(){
+    this.stationsService.obtainCoords().subscribe( coords => {
+      this.stationsCoords = coords
+    });
+
+
+  }
+
+
+
 
 }

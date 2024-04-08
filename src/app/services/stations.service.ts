@@ -2,6 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { StationResponse } from '../interfaces/station-response.interface';
 import { StationCoordinates } from '../interfaces/station-coordinates.interface';
 import { HttpClient } from '@angular/common/http';
+import { map, Observable, tap } from 'rxjs';
+import { environmment } from '../../environments/environments';
 
 @Injectable({
   providedIn: 'root',
@@ -14,25 +16,26 @@ export class StationsService {
   public stations?: StationResponse[];
   public coordsStr: Set<string> = new Set();
   public coords: StationCoordinates[] = [];
-  // public stationsCoordinates = this.getStationsCoordinates( this.stations );
 
   //METHODS
-  constructor() {
-    this.http
-      .get(
-        'https://www.datos.gov.co/resource/ba2i-v4xx.json?$$app_token=B7QNSmnEPL1RSw934Zr9jUEuI&$limit=2000'
+  obtainCoords(): Observable<StationCoordinates[]> {
+    return this.http
+      .get<StationResponse[]>(
+        `https://www.datos.gov.co/resource/ba2i-v4xx.json?$$app_token=${environmment.DATCOL_KEY}&$limit=2000` //TODO: PROTECT API_KEY
       )
-      .subscribe((resp) => {
-        this.stations = resp as StationResponse[];
-        this.stations.forEach( ({ latitud, longitud }) => this.storeCoords(latitud, longitud) );
-        this.coords = this.takeCoords(this.coordsStr);
-        console.log(this.coords);
-
-      });
+      .pipe(
+        tap(( stationsArray) => this.stations = stationsArray as StationResponse[]),
+        map(( stationsArray) => stationsArray.map( ({ latitud, longitud }) => latitud + "|" + longitud )),
+        map( (coordsStringArray) => coordsStringArray.filter( (coordsString, pos) => pos === coordsStringArray.indexOf(coordsString)) ),
+        map( (filteredCoordsStringArray) => filteredCoordsStringArray.map( (filteredStringCoord) => {
+          const res = filteredStringCoord.split('|');
+          return { lat: parseFloat(res[0]), lng:parseFloat(res[1])}
+        }))
+      );
   }
 
   storeCoords(lat: string, lng: string) {
-    this.coordsStr.add(lat + '|' + lng);
+    return this.coordsStr.add(lat + '|' + lng);
   }
 
   takeCoords(arrayCoordsStr: Set<string>) {
