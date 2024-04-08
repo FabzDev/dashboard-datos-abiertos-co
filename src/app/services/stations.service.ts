@@ -3,7 +3,7 @@ import { StationResponse } from '../interfaces/station-response.interface';
 import { StationCoordinates } from '../interfaces/station-coordinates.interface';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, tap } from 'rxjs';
-import { environmment } from '../../environments/environments';
+import { environment } from '../../environments/environments';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,7 @@ export class StationsService {
   obtainCoords(): Observable<StationCoordinates[]> {
     return this.http
       .get<StationResponse[]>(
-        `https://www.datos.gov.co/resource/ba2i-v4xx.json?$$app_token=${environmment.DATCOL_KEY}&$limit=2000` //TODO: PROTECT API_KEY
+        `https://www.datos.gov.co/resource/ba2i-v4xx.json?$$app_token=${environment.GMAPS_KEY}&$limit=2000` //TODO: PROTECT API_KEY
       )
       .pipe(
         tap(( stationsArray) => this.stations = stationsArray as StationResponse[]),
