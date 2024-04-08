@@ -13,35 +13,29 @@ export class StationsService {
   public http = inject(HttpClient);
 
   //PROPERTIES
-  public stations?: StationResponse[];
-  public coordsStr: Set<string> = new Set();
+  public stations: StationResponse[] = [];
   public coords: StationCoordinates[] = [];
 
   //METHODS
   obtainCoords(): Observable<StationCoordinates[]> {
     return this.http
       .get<StationResponse[]>(
-        `https://www.datos.gov.co/resource/ba2i-v4xx.json?$$app_token=${environment.GMAPS_KEY}&$limit=2000` //TODO: PROTECT API_KEY
+        `https://www.datos.gov.co/resource/ba2i-v4xx.json?$$app_token=${environment.DATCOL_KEY}&$limit=2000`
       )
       .pipe(
-        tap(( stationsArray) => this.stations = stationsArray as StationResponse[]),
-        map(( stationsArray) => stationsArray.map( ({ latitud, longitud }) => latitud + "|" + longitud )),
-        map( (coordsStringArray) => coordsStringArray.filter( (coordsString, pos) => pos === coordsStringArray.indexOf(coordsString)) ),
-        map( (filteredCoordsStringArray) => filteredCoordsStringArray.map( (filteredStringCoord) => {
-          const res = filteredStringCoord.split('|');
-          return { lat: parseFloat(res[0]), lng:parseFloat(res[1])}
-        }))
+        tap((stationsArray) => (this.stations = stationsArray as StationResponse[])),
+        map( stationsArray => this.refineCoords(stationsArray)),
+        tap((coords) => (this.coords = coords))
       );
   }
 
-  storeCoords(lat: string, lng: string) {
-    return this.coordsStr.add(lat + '|' + lng);
-  }
-
-  takeCoords(arrayCoordsStr: Set<string>) {
-    return Array.from(arrayCoordsStr).map( (coordsStr) => {
-      const arrStr = coordsStr.split('|');
-      return { lat: parseFloat(arrStr[0]), lng: parseFloat(arrStr[1]) };
-    });
+  refineCoords(stationsArray: StationResponse[]) {
+    return stationsArray
+      .map(({ latitud, longitud }) => latitud + '|' + longitud)
+      .filter( (strCoord, position, strCoordsArr) => position === strCoordsArr.indexOf(strCoord) )
+      .map( filteredStringCoord => {
+        const [lat, lng] = filteredStringCoord.split('|').map(parseFloat);
+        return { lat, lng };
+      });
   }
 }
