@@ -18,7 +18,7 @@ export default class GoogleMapComponent {
 
   private stationsService = inject(StationsService);
 
-  public stations: StationResponse[] = this.stationsService.stationsBolivarFull;
+  public stations?: StationResponse[] = this.stationsService.stations;
 
   public markerOptions: google.maps.MarkerOptions = {draggable: false};
 
