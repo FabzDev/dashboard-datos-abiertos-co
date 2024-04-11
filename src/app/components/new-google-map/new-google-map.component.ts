@@ -22,28 +22,27 @@ import { SidemenuComponent } from '../../shared/sidemenu/sidemenu.component';
   styleUrl: './new-google-map.component.css',
 })
 export default class NewGoogleMapComponent implements OnInit, AfterViewInit, OnDestroy {
-  public renderer = inject(Renderer2);
-
-  public stationsCoords: StationCoordinates[] = [];
+  private renderer = inject(Renderer2);
+  private stationsService = inject(StationsService);
 
   @ViewChild('dirmap') divmap!: ElementRef;
   public map?: google.maps.Map | null;
 
-  constructor(private stationService:StationsService) {
-    this.stationService.obtainCoords().subscribe( coords => this.stationsCoords = coords)
+  constructor() {
   }
 
   ngOnInit(): void {
   }
   ngAfterViewInit(): void {
-    this.stationsCoords = this.stationService.coords;
-    this.cargar_mapa();
+    this.stationsService.getCoords().subscribe(coords => {
+      this.cargar_mapa(coords);
+    })
   }
   ngOnDestroy(): void {
     this.map = null;
   }
 
-  async cargar_mapa() {
+  async cargar_mapa(stationsCoords: StationCoordinates[]) {
     const { Map } = (await google.maps.importLibrary('maps')) as google.maps.MapsLibrary;
     const { AdvancedMarkerElement } = (await google.maps.importLibrary('marker')) as google.maps.MarkerLibrary;
 
@@ -56,7 +55,7 @@ export default class NewGoogleMapComponent implements OnInit, AfterViewInit, OnD
       }
     );
 
-    for (let coords of this.stationsCoords) {
+    for (let coords of stationsCoords) {
       new AdvancedMarkerElement({
         map: this.map,
         position: coords,

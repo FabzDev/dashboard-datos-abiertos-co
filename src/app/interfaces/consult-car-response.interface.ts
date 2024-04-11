@@ -1,0 +1,15 @@
+export interface ConsultCar{
+  placa: string,
+  estado: string,
+  vin: string,
+  idrom_chip: string,
+  fecha_instalacion: string,
+  anio_instalacion: string,
+  mes_instalacion: string,
+  dia_instalacion: string,
+  codigo_municipio_dane: string,
+  departamento_instalacion: string,
+  municipio_instalacion: string,
+  latitud_municipio: string,
+  longitud_municipio: string,
+}

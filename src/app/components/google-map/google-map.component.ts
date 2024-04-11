@@ -28,7 +28,7 @@ export default class GoogleMapComponent {
   };
 
   constructor(){
-    this.stationsService.obtainCoords().subscribe( coords => {
+    this.stationsService.getCoords().subscribe( coords => {
       this.stationsCoords = coords
     });
 
