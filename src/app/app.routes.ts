@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import HomeComponent from './pages/home/home.component';
 
 export const routes: Routes = [
   {
@@ -9,13 +8,13 @@ export const routes: Routes = [
       {
         path: 'stations-map',
         title: 'Mapa de estaciones',
-        loadComponent: () => import('./components/google-map/google-map.component'),
+        loadComponent: () => import('./components/new-google-map/new-google-map.component'),
       },
-      // {
-      //   path: 'consult-vehicle',
-      //   title: 'Consultar Vehículo',
-      //   loadComponent: () => import('./components/google-map/google-map.component'),
-      // },
+      {
+        path: 'consult-vehicle',
+        title: 'Consultar Vehículo',
+        loadComponent: () => import('./components/consult-vehicle/consult-vehicle.component'),
+      },
       // {
       //   path: 'production-agro',
       //   title: 'Producción Agricola',
@@ -26,6 +25,10 @@ export const routes: Routes = [
       //   title: 'Formulario Dirección',
       //   loadComponent: () => import('./components/google-map/google-map.component'),
       // }
+      {
+        path: "**",
+        redirectTo: "stations-map"
+      }
     ]
   },
   {

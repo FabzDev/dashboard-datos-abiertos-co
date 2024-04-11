@@ -3,6 +3,8 @@ import {
   Component,
   ElementRef,
   inject,
+  OnDestroy,
+  OnInit,
   Renderer2,
   ViewChild,
 } from '@angular/core';
@@ -19,22 +21,26 @@ import { SidemenuComponent } from '../../shared/sidemenu/sidemenu.component';
   templateUrl: './new-google-map.component.html',
   styleUrl: './new-google-map.component.css',
 })
-export default class NewGoogleMapComponent implements AfterViewInit {
-  private stationsService = inject(StationsService);
+export default class NewGoogleMapComponent implements OnInit, AfterViewInit, OnDestroy {
   public renderer = inject(Renderer2);
 
   public stationsCoords: StationCoordinates[] = [];
 
   @ViewChild('dirmap') divmap!: ElementRef;
-  public map!: google.maps.Map;
+  public map?: google.maps.Map | null;
 
-  constructor() {
-    this.stationsService.obtainCoords().subscribe((coords) => {
-      this.stationsCoords = coords;
-    });
+  constructor(private stationService:StationsService) {
+    this.stationService.obtainCoords().subscribe( coords => this.stationsCoords = coords)
+  }
+
+  ngOnInit(): void {
   }
   ngAfterViewInit(): void {
+    this.stationsCoords = this.stationService.coords;
     this.cargar_mapa();
+  }
+  ngOnDestroy(): void {
+    this.map = null;
   }
 
   async cargar_mapa() {
@@ -44,8 +50,8 @@ export default class NewGoogleMapComponent implements AfterViewInit {
     this.map = new Map(
       this.renderer.selectRootElement(this.divmap.nativeElement),
       {
-        center: { lat: 6.230833, lng: -75.590553 },
-        zoom: 5,
+        center: { lat: 6.230833, lng: -71.590553 },
+        zoom: 6,
         mapId: '94ada564329fbd72',
       }
     );
