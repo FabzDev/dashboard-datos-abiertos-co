@@ -10,11 +10,12 @@ import { StationsService } from '../../services/stations.service';
 import { StationCoordinates } from '../../interfaces/station-coordinates.interface';
 import { MapAdvancedMarker } from '@angular/google-maps';
 import { map } from 'rxjs';
+import { SidemenuComponent } from '../../shared/sidemenu/sidemenu.component';
 
 @Component({
-  selector: 'app-new-google-map',
+  selector: 'component-new-google-map',
   standalone: true,
-  imports: [],
+  imports: [SidemenuComponent],
   templateUrl: './new-google-map.component.html',
   styleUrl: './new-google-map.component.css',
 })
