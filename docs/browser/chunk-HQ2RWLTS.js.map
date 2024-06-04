@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/consult-vehicle/consult-vehicle.component.ts", "src/app/components/consult-vehicle/consult-vehicle.component.html"],
+  "sourcesContent": ["import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'component-consult-vehicle',\r\n  standalone: true,\r\n  imports: [],\r\n  templateUrl: './consult-vehicle.component.html',\r\n  styleUrl: './consult-vehicle.component.css'\r\n})\r\nexport default class ConsultVehicleComponent {\r\n\r\n}\r\n", "<p>consult-vehicle works!</p>\r\n"],
+  "mappings": ";;;;;;;;;;AASA,IAAqB,2BAArB,MAAqB,yBAAuB;;;mBAAvB,0BAAuB;AAAA;yFAAvB,0BAAuB,WAAA,CAAA,CAAA,2BAAA,CAAA,GAAA,YAAA,MAAA,UAAA,CAAA,6BAAA,GAAA,OAAA,GAAA,MAAA,GAAA,UAAA,SAAA,iCAAA,IAAA,KAAA;AAAA,MAAA,KAAA,GAAA;ACT5C,IAAA,yBAAA,GAAA,GAAA;AAAG,IAAA,iBAAA,GAAA,wBAAA;AAAsB,IAAA,uBAAA;;;ADSzB,IAAqB,0BAArB;;6EAAqB,yBAAuB,EAAA,WAAA,2BAAA,UAAA,uEAAA,YAAA,GAAA,CAAA;AAAA,GAAA;",
+  "names": []
+}
