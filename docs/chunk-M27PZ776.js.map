@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/pages/home/home.component.ts", "src/app/pages/home/home.component.html"],
-  "sourcesContent": ["import { Component } from '@angular/core';\r\nimport { SidemenuComponent } from '../../shared/sidemenu/sidemenu.component';\r\nimport NewGoogleMapComponent from '../../components/new-google-map/new-google-map.component';\r\nimport { Router, RouterModule } from '@angular/router';\r\n\r\n@Component({\r\n  selector: 'app-home',\r\n  standalone: true,\r\n  imports: [SidemenuComponent, RouterModule],\r\n  templateUrl: './home.component.html',\r\n  styleUrl: './home.component.css'\r\n})\r\nexport default class HomeComponent {\r\n\r\n}\r\n", "<div class=\"container\">\r\n\r\n  <div class=\"flex\">\r\n    <shared-sidemenu></shared-sidemenu>\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>\r\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;AAYA,IAAqB,iBAArB,MAAqB,eAAa;;;mBAAb,gBAAa;AAAA;+EAAb,gBAAa,WAAA,CAAA,CAAA,UAAA,CAAA,GAAA,YAAA,MAAA,UAAA,CAAA,6BAAA,GAAA,OAAA,GAAA,MAAA,GAAA,QAAA,CAAA,CAAA,GAAA,WAAA,GAAA,CAAA,GAAA,MAAA,CAAA,GAAA,UAAA,SAAA,uBAAA,IAAA,KAAA;AAAA,MAAA,KAAA,GAAA;ACZlC,IAAA,yBAAA,GAAA,OAAA,CAAA,EAAuB,GAAA,OAAA,CAAA;AAGnB,IAAA,oBAAA,GAAA,iBAAA,EAAmC,GAAA,eAAA;AAErC,IAAA,uBAAA,EAAM;;kBDGI,mBAAmB,cAAY,YAAA,EAAA,CAAA;AAI3C,IAAqB,gBAArB;;6EAAqB,eAAa,EAAA,WAAA,iBAAA,UAAA,4CAAA,YAAA,GAAA,CAAA;AAAA,GAAA;",
-  "names": []
-}
