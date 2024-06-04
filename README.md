@@ -25,5 +25,5 @@ This project is still under development. Contributions are welcome!
 
 ## Installation
 
-1. Clone the repository:
+Pending...
 
